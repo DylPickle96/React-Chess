@@ -1,6 +1,6 @@
 .board {
-  border: 10px solid grey;
-  width: 600px;
+  border: 10px solid black;
+  width: 500px;
 }
 
 .board div:nth-child(-2n+8),
@@ -11,5 +11,5 @@
 .board div:nth-child(40) ~ div:nth-child(-2n+47),
 .board div:nth-child(48) ~ div:nth-child(-2n+56),
 .board div:nth-child(56) ~ div:nth-child(-2n+63) {
-    background-color: #000;
+    background-color: #A9A9A9;
 }
