@@ -9,22 +9,22 @@ import Queen from './Queen';
 import King from './King';
 
 let boardList = {
-  0:'black Rook',
-  1:'black Knight',
-  2:'black Bishop',
-  3:'black Queen',
-  4:'black King',
-  5:'black Bishop',
-  6:'black Knight',
-  7:'black Rook',
-  8:'black Pawn',
-  9:'black Pawn',
-  10:'black Pawn',
-  11:'black Pawn',
-  12:'black Pawn',
-  13:'black Pawn',
-  14:'black Pawn',
-  15:'black Pawn',
+  0:'Black Rook',
+  1:'Black Knight',
+  2:'Black Bishop',
+  3:'Black Queen',
+  4:'Black King',
+  5:'Black Bishop',
+  6:'Black Knight',
+  7:'Black Rook',
+  8:'Black Pawn',
+  9:'Black Pawn',
+  10:'Black Pawn',
+  11:'Black Pawn',
+  12:'Black Pawn',
+  13:'Black Pawn',
+  14:'Black Pawn',
+  15:'Black Pawn',
   16:null,
   17:null,
   18:null,
@@ -57,32 +57,23 @@ let boardList = {
   45:null,
   46:null,
   47:null,
-  48:'white Pawn',
-  49:'white Pawn',
-  50:'white Pawn',
-  51:'white Pawn',
-  52:'white Pawn',
-  53:'white Pawn',
-  54:'white Pawn',
-  55:'white Pawn',
-  56:'white Rook',
-  57:'white Knight',
-  58:'white Bishop',
-  59:'white Queen',
-  60:'white King',
-  61:'white Bishop',
-  62:'white Knight',
-  63:'white Rook'
+  48:'White Pawn',
+  49:'White Pawn',
+  50:'White Pawn',
+  51:'White Pawn',
+  52:'White Pawn',
+  53:'White Pawn',
+  54:'White Pawn',
+  55:'White Pawn',
+  56:'White Rook',
+  57:'White Knight',
+  58:'White Bishop',
+  59:'White Queen',
+  60:'White King',
+  61:'White Bishop',
+  62:'White Knight',
+  63:'White Rook'
 };
-
-const pieceComponents = [
-  <Pawn />,
-  <Rook />,
-  <Knight />,
-  <Bishop />,
-  <Queen />,
-  <King />
-];
 
 class Board extends Component {
   constructor (props) {
@@ -98,6 +89,16 @@ class Board extends Component {
 
       if (this.state.boardState[i] !== null) {
         const componentName = this.state.boardState[i].split(' ')[1];
+        const componentColour = this.state.boardState[i].split(' ')[0];
+
+        const pieceComponents = [
+          <Pawn color={componentColour}/>,
+          <Rook color={componentColour}/>,
+          <Knight color={componentColour}/>,
+          <Bishop color={componentColour}/>,
+          <Queen color={componentColour}/>,
+          <King color={componentColour}/>
+        ];
 
         for (let j = 0; j < pieceComponents.length; j++) {
           if (pieceComponents[j].type.name === componentName) {
