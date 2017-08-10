@@ -81,16 +81,20 @@ class Board extends Component {
 
     this.state = {
       board: [],
-      boardState: boardList
+      boardInitialState: boardList,
+      boardState: null
     };
+    this.drawBoard = this.drawBoard.bind(this);
   }
-  componentWillMount () {
+
+  drawBoard = (boardState) => {
+    //build an array of all 64 squares of a chess board
     for (let i = 0; i < 64; i++) {
-
-      if (this.state.boardState[i] !== null) {
-        const componentName = this.state.boardState[i].split(' ')[1];
-        const componentColour = this.state.boardState[i].split(' ')[0];
-
+      if (boardState[i] !== null) {
+        //these values help determine where the piece sits and what colour it is
+        const componentName = boardState[i].split(' ')[1];
+        const componentColour = boardState[i].split(' ')[0];
+        //list of all available pieces
         const pieceComponents = [
           <Pawn color={componentColour}/>,
           <Rook color={componentColour}/>,
@@ -99,18 +103,33 @@ class Board extends Component {
           <Queen color={componentColour}/>,
           <King color={componentColour}/>
         ];
-
+        //pushes the correct component based on starting positions
         for (let j = 0; j < pieceComponents.length; j++) {
           if (pieceComponents[j].type.name === componentName) {
             this.state.board.push(<Square key={i} number={i} piece={pieceComponents[j]} />);
           }
         }
-
-
-      } else {
-        this.state.board.push(<Square key={i} number={i} />)
+      }
+      else {
+        //else just a blank square on our board
+        this.state.board.push(<Square key={i} number={i} piece={null}/>)
       }
     }
+  }
+
+  componentWillMount () {
+    this.drawBoard(this.state.boardInitialState);
+  }
+
+  componentDidMount () {
+    let currentBoardState = boardList;
+    currentBoardState[52] = null;
+    currentBoardState[36] = 'White Pawn';
+
+    this.setState( {boardState: currentBoardState}, function () {
+      this.drawBoard(this.state.boardState);
+      console.log(this.state.boardState);
+    });
   }
 
   render () {
