@@ -8,7 +8,7 @@ import Bishop from './Bishop';
 import Queen from './Queen';
 import King from './King';
 
-let boardList = {
+const boardList = {
   0:'Black Rook',
   1:'Black Knight',
   2:'Black Bishop',
@@ -81,14 +81,46 @@ class Board extends Component {
 
     this.state = {
       board: [],
-      boardInitialState: boardList,
-      boardState: null
+      boardState: boardList,
+      firstClick: false,
+      movingPieceNumber: null
     };
     this.drawBoard = this.drawBoard.bind(this);
+    this.handleMove = this.handleMove.bind(this);
+  }
+
+  handleMove = (squareNumber, piece) => {
+
+    // this represents where the play wants to move his piece
+    let destination = null;
+
+    // if a piece is clicked firstClick is true. We keep track of the moving piece's square number
+    if (piece !== null) {
+      this.setState({ firstClick: true, movingPieceNumber: squareNumber });
+    } // once first click is true and if it's not another piece we can move the selected piece
+    else if (this.state.firstClick === true) {
+
+      //destination becomes the number of the that was clicked on
+      destination = squareNumber;
+      // have a variable that is based on the current board state that I manipulate
+      let board = this.state.boardState;
+      // save the piece to move
+      let movingPiece = board[this.state.movingPieceNumber];
+
+      // reset it's previous position and set it's new position
+      board[this.state.movingPieceNumber] = null;
+      board[destination] = movingPiece;
+
+      // update the state of the board and draw the board
+      this.setState({boardState: board}, function () {
+        this.drawBoard(this.state.boardState);
+      });
+    }
   }
 
   drawBoard = (boardState) => {
     //build an array of all 64 squares of a chess board
+    let board = [];
     for (let i = 0; i < 64; i++) {
       if (boardState[i] !== null) {
         //these values help determine where the piece sits and what colour it is
@@ -106,30 +138,21 @@ class Board extends Component {
         //pushes the correct component based on starting positions
         for (let j = 0; j < pieceComponents.length; j++) {
           if (pieceComponents[j].type.name === componentName) {
-            this.state.board.push(<Square key={i} number={i} piece={pieceComponents[j]} />);
+              //squareNumber is a unique identifier, handleMove is the function used for piece movement
+              board.push(<Square key={i} piece={pieceComponents[j]} squareNumber={i} handleMove={this.handleMove} />);
           }
         }
       }
       else {
         //else just a blank square on our board
-        this.state.board.push(<Square key={i} number={i} piece={null}/>)
+          board.push(<Square key={i} piece={null} squareNumber={i} handleMove={this.handleMove}/>)
       }
     }
+    this.setState({board: board});
   }
 
   componentWillMount () {
-    this.drawBoard(this.state.boardInitialState);
-  }
-
-  componentDidMount () {
-    let currentBoardState = boardList;
-    currentBoardState[52] = null;
-    currentBoardState[36] = 'White Pawn';
-
-    this.setState( {boardState: currentBoardState}, function () {
-      this.drawBoard(this.state.boardState);
-      console.log(this.state.boardState);
-    });
+    this.drawBoard(this.state.boardState);
   }
 
   render () {
