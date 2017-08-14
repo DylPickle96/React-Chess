@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
 import '../stylesheets/board.css';
 import Square from './Square';
-import Pawn from './Pawn';
-import Rook from './Rook';
-import Knight from './Knight';
-import Bishop from './Bishop';
-import Queen from './Queen';
-import King from './King';
 
 const boardList = {
   0:'Black Rook',
@@ -93,7 +87,6 @@ class Board extends Component {
 
     // this represents where the play wants to move his piece
     let destination = null;
-
     // if a piece is clicked firstClick is true. We keep track of the moving piece's square number
     if (piece !== null) {
       this.setState({ firstClick: true, movingPieceNumber: squareNumber });
@@ -102,7 +95,7 @@ class Board extends Component {
 
       //destination becomes the number of the that was clicked on
       destination = squareNumber;
-      // have a variable that is based on the current board state that I manipulate
+      // have a variable that is based on the current board state that I can manipulate
       let board = this.state.boardState;
       // save the piece to move
       let movingPiece = board[this.state.movingPieceNumber];
@@ -124,28 +117,15 @@ class Board extends Component {
     for (let i = 0; i < 64; i++) {
       if (boardState[i] !== null) {
         //these values help determine where the piece sits and what colour it is
-        const componentName = boardState[i].split(' ')[1];
-        const componentColour = boardState[i].split(' ')[0];
-        //list of all available pieces
-        const pieceComponents = [
-          <Pawn color={componentColour}/>,
-          <Rook color={componentColour}/>,
-          <Knight color={componentColour}/>,
-          <Bishop color={componentColour}/>,
-          <Queen color={componentColour}/>,
-          <King color={componentColour}/>
-        ];
-        //pushes the correct component based on starting positions
-        for (let j = 0; j < pieceComponents.length; j++) {
-          if (pieceComponents[j].type.name === componentName) {
-              //squareNumber is a unique identifier, handleMove is the function used for piece movement
-              board.push(<Square key={i} piece={pieceComponents[j]} squareNumber={i} handleMove={this.handleMove} />);
-          }
-        }
+        const piece = boardState[i].split(' ')[1];
+        const pieceColour = boardState[i].split(' ')[0];
+
+        //pushes the correct component based on the state of the board
+        board.push(<Square key={i} piece={piece} pieceColour={pieceColour} squareNumber={i} handleMove={this.handleMove} />);
       }
       else {
         //else just a blank square on our board
-          board.push(<Square key={i} piece={null} squareNumber={i} handleMove={this.handleMove}/>)
+        board.push(<Square key={i} piece={null} squareNumber={i} handleMove={this.handleMove}/>)
       }
     }
     this.setState({board: board});
