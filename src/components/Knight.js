@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import WhiteKnight from '../images/White_Knight.png';
 import BlackKnight from '../images/Black_Knight.png';
 
-const Knight = ({color}) => {
+class Knight extends Component {
 
-  let knight = null;
+  render () {
+    let knight = null;
 
-  if (color === 'White') {
-    knight = <img src={WhiteKnight} alt={`${color} Knight`} ></img>
-  } else if (color === 'Black') {
-    knight = <img src={BlackKnight} alt={`${color} Knight`} ></img>
+    if (this.props.color === 'White') {
+      knight = <img src={WhiteKnight} alt={`${this.props.color} Knight`} ></img>
+    } else if (this.props.color === 'Black') {
+      knight = <img src={BlackKnight} alt={`${this.props.color} Knight`} ></img>
+    }
+
+    return (
+      knight
+    );
   }
-  return (
-    knight
-  );
 }
 
 export default Knight;

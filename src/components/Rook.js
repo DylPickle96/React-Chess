@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import WhiteRook from '../images/White_Rook.png';
 import BlackRook from '../images/Black_Rook.png';
 
-const Rook = ({color}) => {
+class Rook extends Component {
 
-  let rook = null;
+  render () {
+    let rook = null;
 
-  if (color === 'White') {
-    rook = <img src={WhiteRook} alt={`${color} Rook`} ></img>
-  } else if (color === 'Black') {
-    rook = <img src={BlackRook} alt={`${color} Rook`} ></img>
+    if (this.props.color === 'White') {
+      rook = <img src={WhiteRook} alt={`${this.props.color} Rook`} ></img>
+    } else if (this.props.color === 'Black') {
+      rook = <img src={BlackRook} alt={`${this.props.color} Rook`} ></img>
+    }
+    return (
+      rook
+    );
   }
-  return (
-    rook
-  );
 }
 
 export default Rook;

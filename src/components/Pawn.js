@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { Component } from 'react';
 import WhitePawn from '../images/White_Pawn.png';
 import BlackPawn from '../images/Black_Pawn.png';
 
-const Pawn = ({color, style}) => {
-  let pawn = null;
+class Pawn extends Component {
 
-  if (color === 'White') {
-    pawn = <img src={WhitePawn} alt={`${color} Pawn`} ></img>
+  render () {
+    let pawn = null;
+
+    if (this.props.color === 'White') {
+      pawn = <img src={WhitePawn} alt={`${this.props.color} Pawn`} ></img>
+    }
+    else if (this.props.color === 'Black') {
+      pawn = <img src={BlackPawn} alt={`${this.props.color} Pawn`} ></img>
+    }
+
+    return (
+      pawn
+    );
   }
-  else if (color === 'Black') {
-    pawn = <img src={BlackPawn} alt={`${color} Pawn`} ></img>
-  }
-  return (
-    pawn
-  );
 }
 
 export default Pawn;
