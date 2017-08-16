@@ -5,7 +5,7 @@ export const pawnMovement = (startingPosition, destination, pieceColour) => {
 
   if (pieceColour === 'White') {
 
-    for (let i = 48; i < 55; i++) {
+    for (let i = 48; i < 56; i++) {
       if (startingPosition === (i)) {
         firstTurn = true;
       }
@@ -29,7 +29,8 @@ export const pawnMovement = (startingPosition, destination, pieceColour) => {
     }
   }
   else if (pieceColour === 'Black') {
-    for (let i = 8; i < 15; i++) {
+    
+    for (let i = 8; i < 16; i++) {
       if (startingPosition === (i)) {
         firstTurn = true;
       }
