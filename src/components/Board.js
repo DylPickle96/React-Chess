@@ -1,75 +1,11 @@
 import React, { Component } from 'react';
 import '../stylesheets/board.css';
 import Square from './Square';
-
-const boardList = {
-  0:'Black Rook',
-  1:'Black Knight',
-  2:'Black Bishop',
-  3:'Black Queen',
-  4:'Black King',
-  5:'Black Bishop',
-  6:'Black Knight',
-  7:'Black Rook',
-  8:'Black Pawn',
-  9:'Black Pawn',
-  10:'Black Pawn',
-  11:'Black Pawn',
-  12:'Black Pawn',
-  13:'Black Pawn',
-  14:'Black Pawn',
-  15:'Black Pawn',
-  16:null,
-  17:null,
-  18:null,
-  19:null,
-  20:null,
-  21:null,
-  22:null,
-  23:null,
-  24:null,
-  25:null,
-  26:null,
-  27:null,
-  28:null,
-  29:null,
-  30:null,
-  31:null,
-  32:null,
-  33:null,
-  34:null,
-  35:null,
-  36:null,
-  37:null,
-  38:null,
-  39:null,
-  40:null,
-  41:null,
-  42:null,
-  43:null,
-  44:null,
-  45:null,
-  46:null,
-  47:null,
-  48:'White Pawn',
-  49:'White Pawn',
-  50:'White Pawn',
-  51:'White Pawn',
-  52:'White Pawn',
-  53:'White Pawn',
-  54:'White Pawn',
-  55:'White Pawn',
-  56:'White Rook',
-  57:'White Knight',
-  58:'White Bishop',
-  59:'White Queen',
-  60:'White King',
-  61:'White Bishop',
-  62:'White Knight',
-  63:'White Rook'
-};
+import {pieceRouter} from '../logic/movement';
+import {boardList} from '../logic/starting-positions';
 
 class Board extends Component {
+
   constructor (props) {
     super(props);
 
@@ -100,12 +36,14 @@ class Board extends Component {
       // save the piece to move
       let movingPiece = board[this.state.movingPieceNumber];
 
-      // reset it's previous position and set it's new position
-      board[this.state.movingPieceNumber] = null;
-      board[destination] = movingPiece;
+      if (pieceRouter(movingPiece, this.state.movingPieceNumber, destination, this.state.boardState)) {
+        // reset it's previous position and set it's new position
+        board[this.state.movingPieceNumber] = null;
+        board[destination] = movingPiece;
+      }
 
       // update the state of the board and draw the board
-      this.setState({boardState: board}, function () {
+      this.setState({boardState: board, firstClick: false}, function () {
         this.drawBoard(this.state.boardState);
       });
     }
@@ -121,11 +59,22 @@ class Board extends Component {
         const pieceColour = boardState[i].split(' ')[0];
 
         //pushes the correct component based on the state of the board
-        board.push(<Square key={i} piece={piece} pieceColour={pieceColour} squareNumber={i} handleMove={this.handleMove} />);
+        board.push(<Square
+                      key={i}
+                      piece={piece}
+                      pieceColour={pieceColour}
+                      squareNumber={i}
+                      handleMove={this.handleMove}
+                    />);
       }
       else {
         //else just a blank square on our board
-        board.push(<Square key={i} piece={null} squareNumber={i} handleMove={this.handleMove}/>)
+        board.push(<Square
+                      key={i}
+                      piece={null}
+                      squareNumber={i}
+                      handleMove={this.handleMove}
+                    />)
       }
     }
     this.setState({board: board});
