@@ -13,7 +13,7 @@ export const pieceRouter = (piece, startingPosition, destination, currentBoardSt
 
   switch(pieceName) {
     case 'Pawn':
-      return pawnMovement(startingPosition, destination, pieceColour);
+      return pawnMovement(startingPosition, destination, pieceColour, currentBoardState);
     case 'Rook':
       return rookMovement(startingPosition, destination, currentBoardState);
     case 'Knight':

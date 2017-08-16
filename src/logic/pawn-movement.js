@@ -1,14 +1,12 @@
-export const pawnMovement = (startingPosition, destination, pieceColour) => {
+export const pawnMovement = (startingPosition, destination, pieceColour, currentBoardState) => {
 
   const inRow = startingPosition % 8 === destination % 8;
   let firstTurn;
 
   if (pieceColour === 'White') {
 
-    for (let i = 48; i < 56; i++) {
-      if (startingPosition === (i)) {
-        firstTurn = true;
-      }
+    if (startingPosition  >= 48 && startingPosition <= 56 && currentBoardState[startingPosition - 8] === null) {
+      firstTurn = true;
     }
 
     if (firstTurn && inRow) {
@@ -29,11 +27,9 @@ export const pawnMovement = (startingPosition, destination, pieceColour) => {
     }
   }
   else if (pieceColour === 'Black') {
-    
-    for (let i = 8; i < 16; i++) {
-      if (startingPosition === (i)) {
-        firstTurn = true;
-      }
+
+    if (startingPosition >= 8 && startingPosition <= 16 && currentBoardState[startingPosition + 8] === null) {
+      firstTurn = true;
     }
 
     if (firstTurn && inRow) {
