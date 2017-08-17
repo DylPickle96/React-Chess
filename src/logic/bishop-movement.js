@@ -1,4 +1,4 @@
-const blockageFinder = (currentBoardState, startingPosition, destination) => {
+export const diagonalBlockageFinder = (currentBoardState, startingPosition, destination) => {
 
   let stepsBetweenPieces;
 
@@ -35,7 +35,7 @@ const blockageFinder = (currentBoardState, startingPosition, destination) => {
   }
   // if the movement is up and right we need to use 7 and values that are divisible by 7
   else if (Math.abs((startingPosition - destination) % 7) === 0 && startingPosition > destination) {
-    console.log('up & right');
+
     stepsBetweenPieces = Math.abs(startingPosition - destination);
 
     while (stepsBetweenPieces > 0) {
@@ -48,7 +48,7 @@ const blockageFinder = (currentBoardState, startingPosition, destination) => {
   }
   // movement is down and left
   else if (Math.abs((startingPosition - destination) % 7) === 0 && startingPosition < destination) {
-    console.log('down & left');
+
     stepsBetweenPieces = Math.abs(startingPosition - destination);
 
     while (stepsBetweenPieces > 0) {
@@ -69,7 +69,7 @@ export const bishopMovement = (startingPosition, destination, currentBoardState)
   // from one another
   if (Math.abs((startingPosition - destination) % 9) === 0) {
 
-    blockage = blockageFinder(currentBoardState, startingPosition, destination);
+    blockage = diagonalBlockageFinder(currentBoardState, startingPosition, destination);
 
     if (!blockage) {
       return true;
@@ -80,7 +80,7 @@ export const bishopMovement = (startingPosition, destination, currentBoardState)
   // from one another
   else if (Math.abs((startingPosition - destination) % 7) === 0) {
 
-    blockage = blockageFinder(currentBoardState, startingPosition, destination);
+    blockage = diagonalBlockageFinder(currentBoardState, startingPosition, destination);
 
     if (!blockage) {
       return true;
