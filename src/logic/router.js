@@ -1,34 +1,34 @@
 import {pawnMovement} from './pawn-movement';
 import {rookMovement} from './rook-movement';
 import {knightMovement} from './knight-movement';
+import {bishopMovement} from './bishop-movement';
+import {kingMovement} from './king-movement';
 
 export const pieceRouter = (piece, startingPosition, destination, currentBoardState) => {
 
-  let pieceName;
-  let pieceColour;
   // piece name and colour
   if (piece !== null) {
-    pieceName = piece.split(' ')[1];
-    pieceColour = piece.split(' ')[0];
+    const pieceName = piece.split(' ')[1];
+    const pieceColour = piece.split(' ')[0];
+
+    switch(pieceName) {
+      case 'Pawn':
+        return pawnMovement(startingPosition, destination, pieceColour, currentBoardState);
+      case 'Rook':
+        return rookMovement(startingPosition, destination, currentBoardState);
+      case 'Knight':
+        return knightMovement(startingPosition, destination);
+      case 'Bishop':
+        return bishopMovement(startingPosition, destination, currentBoardState);
+      case 'Queen':
+        console.log(pieceName);
+        break;
+      case 'King':
+        return kingMovement(startingPosition, destination);
+      default:
+        return;
+    }
   }
 
-  switch(pieceName) {
-    case 'Pawn':
-      return pawnMovement(startingPosition, destination, pieceColour, currentBoardState);
-    case 'Rook':
-      return rookMovement(startingPosition, destination, currentBoardState);
-    case 'Knight':
-      return knightMovement(startingPosition, destination);
-    case 'Bishop':
-      console.log(pieceName);
-      break;
-    case 'Queen':
-      console.log(pieceName);
-      break;
-    case 'King':
-      console.log(pieceName);
-      break;
-    default:
-      return;
-  }
+
 }

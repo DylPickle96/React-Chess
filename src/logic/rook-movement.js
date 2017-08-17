@@ -5,13 +5,19 @@ const blockageFinder = (startingPosition, destination, currentBoardState, inRow,
   // Checks if the movement is within a row or a col
   // based on those booleans the loop finds pieces within that given row or col and we call these blocking pieces
   for (let i = 0; i < currentBoardState.length; i++) {
+
+    const excludeSelectedPiece = i !== startingPosition;
+    const isPiece = currentBoardState[i] !== null;
+    const colBlockage = i % 8 === startingPosition % 8;
+    const rowBlockage = Math.floor(i / 8) === Math.floor(startingPosition / 8);
+
     if (inCol) {
-      if  (i % 8 === startingPosition % 8 && i !== startingPosition && currentBoardState[i] !== null) {
+      if  (colBlockage && excludeSelectedPiece && isPiece) {
         blockingPieces.push(i);
       }
     }
-    else if (inRow){
-      if (Math.floor(i / 8) === Math.floor(startingPosition / 8) && i !== startingPosition && currentBoardState[i] !== null) {
+    else if (inRow) {
+      if (rowBlockage && excludeSelectedPiece && isPiece) {
         blockingPieces.push(i);
       }
     }
