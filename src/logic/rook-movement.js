@@ -1,4 +1,4 @@
-const blockageFinder = (startingPosition, destination, currentBoardState, inRow, inCol) => {
+export const linearBlockageFinder = (startingPosition, destination, currentBoardState, inRow, inCol) => {
 
   let blockingPieces = [];
 
@@ -53,12 +53,15 @@ export const rookMovement = (startingPosition, destination, currentBoardState) =
   const inCol = startingPosition % 8 === destination % 8;
   const inRow = Math.floor(startingPosition / 8) === Math.floor(destination / 8);
   // a function which finds pieces that might block a rook's path to it's destination
-  const blockage = blockageFinder(startingPosition, destination, currentBoardState, inRow, inCol);
+  const blockage = linearBlockageFinder(startingPosition, destination, currentBoardState, inRow, inCol);
 
   // returns true if there is no blockage and the movement is linear (I.E. in a row or column)
   if (inRow || inCol) {
     if (!blockage) {
       return true;
     }
+  }
+  else {
+    return false;
   }
 }
