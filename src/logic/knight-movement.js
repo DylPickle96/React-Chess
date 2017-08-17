@@ -20,5 +20,5 @@ export const knightMovement = (startingPosition, destination) => {
     return false;
   }
 
-  // Knight Movement was easy because it did not need to be capped. The Knight can jump pieces
+  // Knight Movement was easy because pieces do not block the Knight. The Knight can jump pieces
 }

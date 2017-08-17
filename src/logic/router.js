@@ -1,6 +1,8 @@
 import {pawnMovement} from './pawn-movement';
 import {rookMovement} from './rook-movement';
 import {knightMovement} from './knight-movement';
+import {bishopMovement} from './bishop-movement';
+import {kingMovement} from './king-movement';
 
 export const pieceRouter = (piece, startingPosition, destination, currentBoardState) => {
 
@@ -20,14 +22,12 @@ export const pieceRouter = (piece, startingPosition, destination, currentBoardSt
     case 'Knight':
       return knightMovement(startingPosition, destination);
     case 'Bishop':
-      console.log(pieceName);
-      break;
+      return bishopMovement(startingPosition, destination, currentBoardState);
     case 'Queen':
       console.log(pieceName);
       break;
     case 'King':
-      console.log(pieceName);
-      break;
+      return kingMovement(startingPosition, destination);
     default:
       return;
   }
