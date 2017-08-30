@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import '../stylesheets/board.css';
 import Square from './Square';
-import {pieceRouter} from '../logic/router';
-import {boardList} from '../logic/starting-positions';
+import { pieceRouter } from '../logic/router';
+import { boardList } from '../logic/starting-positions';
 
 class Board extends Component {
 

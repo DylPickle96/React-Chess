@@ -8,9 +8,13 @@ import King from './King';
 
 const styles = {
   squareStyle: {
-    display: 'inline-block',
+    float: 'left',
+    margin: '0',
+    padding: '0',
     width: '60px',
-    height: '60px'
+    height: '60px',
+    border: '1px solid black'
+
   },
   pieceStyle: {
     height: '50px',
@@ -39,9 +43,9 @@ class Square extends Component {
     if (piece !== null) {
 
       square = <div style={squareStyle} onClick={handleMove.bind(this, squareNumber, piece)}>
-                  <div style={pieceStyle}>
+                  <span style={pieceStyle}>
                     {React.createElement(chessPieces[piece], {color: pieceColour} )}
-                  </div>
+                  </span>
                </div>
     }
     // otherwise just return a blank square

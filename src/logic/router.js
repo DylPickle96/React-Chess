@@ -29,6 +29,4 @@ export const pieceRouter = (piece, startingPosition, destination, currentBoardSt
         return;
     }
   }
-
-
 }

@@ -1,6 +1,5 @@
 .board {
-  border: 10px solid black;
-  width: 480px;
+  max-width: 496px;
 }
 
 .board div:nth-child(-2n+8),
