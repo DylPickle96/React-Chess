@@ -4,6 +4,22 @@ import Square from './Square';
 import { pieceRouter } from '../logic/router';
 import { boardList } from '../logic/starting-positions';
 
+const isEnemy = (movingPiece, destinationPiece) => {
+
+  if (destinationPiece !== null) {
+    const isEnemyColour = movingPiece.split(' ')[0] !== destinationPiece.split(' ')[0];
+    if (isEnemyColour) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+  else {
+    return false;
+  }
+}
+
 class Board extends Component {
 
   constructor (props) {
@@ -21,30 +37,42 @@ class Board extends Component {
 
   handleMove = (squareNumber, piece) => {
 
+    const { firstClick, boardState, movingPieceNumber } = this.state;
+
     // this represents where the play wants to move his piece
     let destination = null;
     // if a piece is clicked firstClick is true. We keep track of the moving piece's square number
-    if (piece !== null) {
+    if (piece !== null && firstClick === false) {
       this.setState({ firstClick: true, movingPieceNumber: squareNumber });
     } // once first click is true and if it's not another piece we can move the selected piece
-    else if (this.state.firstClick === true) {
+    else if (firstClick === true) {
 
-      //destination becomes the number of the that was clicked on
+      // destination becomes the number of the square that was clicked on
       destination = squareNumber;
+      console.log('destination', destination)
       // have a variable that is based on the current board state that I can manipulate
-      let board = this.state.boardState;
+      let board = boardState;
       // save the piece to move
-      let movingPiece = board[this.state.movingPieceNumber];
+      let movingPiece = board[movingPieceNumber];
+      let destinationPiece = board[destination];
+      // this function returns true or false if the piece can move or not
 
-      if (pieceRouter(movingPiece, this.state.movingPieceNumber, destination, this.state.boardState)) {
+      const isEnemyPiece = isEnemy(movingPiece, destinationPiece);
+      const canMove = pieceRouter(movingPiece, movingPieceNumber, destination, boardState);
+
+      if (canMove && isEnemyPiece) {
         // reset it's previous position and set it's new position
-        board[this.state.movingPieceNumber] = null;
+        board[movingPieceNumber] = null;
+        board[destination] = movingPiece;
+      }
+      else if (canMove) {
+        board[movingPieceNumber] = null;
         board[destination] = movingPiece;
       }
 
       // update the state of the board and draw the board
       this.setState({boardState: board, firstClick: false}, function () {
-        this.drawBoard(this.state.boardState);
+        this.drawBoard(boardState);
       });
     }
   }

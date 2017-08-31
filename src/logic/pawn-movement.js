@@ -30,6 +30,9 @@ export const pawnMovement = (startingPosition, destination, pieceColour, current
         return false;
       }
     }
+    else if ((destination - startingPosition === -9) || (destination - startingPosition === -7)) {
+      return true;
+    }
   }
   // this is the same as a white piece just set up for black starting positions
   else if (pieceColour === 'Black') {
@@ -52,6 +55,9 @@ export const pawnMovement = (startingPosition, destination, pieceColour, current
       else {
         return false;
       }
+    }
+    else if ((destination - startingPosition === 9) || (destination - startingPosition === 7)) {
+      return true;
     }
   }
 }
