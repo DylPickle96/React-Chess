@@ -30,7 +30,7 @@ export const pawnMovement = (startingPosition, destination, pieceColour, current
         return false;
       }
     }
-    else if ((destination - startingPosition === -9) || (destination - startingPosition === -7)) {
+    else if ( ((currentBoardState[destination] !== null) && (destination - startingPosition === -9)) || ((currentBoardState[destination] !== null) && (destination - startingPosition === -7)) ) {
       return true;
     }
   }
@@ -56,7 +56,7 @@ export const pawnMovement = (startingPosition, destination, pieceColour, current
         return false;
       }
     }
-    else if ((destination - startingPosition === 9) || (destination - startingPosition === 7)) {
+    else if ( ((currentBoardState[destination] !== null) && (destination - startingPosition === 9)) || ((currentBoardState[destination] !== null) && (destination - startingPosition === 7)) ) {
       return true;
     }
   }
