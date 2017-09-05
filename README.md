@@ -1,6 +1,6 @@
 ## My Version Of Chess
 
-The was a small single page application I built using React. Currently all pieces move as they are supposed to and can capture other opposing pieces but more advanced features are to come!
+The was a front end project I built using React. Currently all pieces move as they are supposed to and can capture other opposing pieces but more advanced features are to come!
 
 ### If you would like to test this in development
 
