@@ -4,19 +4,19 @@ import Square from './Square';
 import { pieceRouter } from '../logic/router';
 import { boardList } from '../logic/starting-positions';
 
-const isEnemy = (movingPiece, destinationPiece) => {
+const isFriendly = (movingPiece, destinationPiece) => {
 
   if (destinationPiece !== null) {
-    const isEnemyColour = movingPiece.split(' ')[0] !== destinationPiece.split(' ')[0];
-    if (isEnemyColour) {
-      return true;
+    const isFriendlyColour = movingPiece.split(' ')[0] === destinationPiece.split(' ')[0];
+    if (isFriendlyColour) {
+      return false;
     }
     else {
-      return false;
+      return true;
     }
   }
   else {
-    return false;
+    return true;
   }
 }
 
@@ -49,7 +49,6 @@ class Board extends Component {
 
       // destination becomes the number of the square that was clicked on
       destination = squareNumber;
-      console.log('destination', destination)
       // have a variable that is based on the current board state that I can manipulate
       let board = boardState;
       // save the piece to move
@@ -57,15 +56,11 @@ class Board extends Component {
       let destinationPiece = board[destination];
       // this function returns true or false if the piece can move or not
 
-      const isEnemyPiece = isEnemy(movingPiece, destinationPiece);
+      const isFriendlyPiece = isFriendly(movingPiece, destinationPiece);
       const canMove = pieceRouter(movingPiece, movingPieceNumber, destination, boardState);
 
-      if (canMove && isEnemyPiece) {
+      if (canMove && isFriendlyPiece) {
         // reset it's previous position and set it's new position
-        board[movingPieceNumber] = null;
-        board[destination] = movingPiece;
-      }
-      else if (canMove) {
         board[movingPieceNumber] = null;
         board[destination] = movingPiece;
       }
